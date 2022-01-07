@@ -1,6 +1,8 @@
 package mooc.vandy.java4android.birthday.logic;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import mooc.vandy.java4android.birthday.ui.OutputInterface;
 
@@ -72,13 +74,43 @@ public class Logic
      * <p>
      * We provide you this method that way we can test it with unit testing.
      */
+
     public double calculate(int size, int count) {
-        // TODO -- add your code here
-
-        
+        Random random = new Random();
+        int number_of_matches = 0;
+        for (int i = 0; i < count; i++) {
+            Set<Integer> bdays = new HashSet<>();
+            random.setSeed(i + 1);
+            for (int j = 0; j < size; j++) {
+                int r = random.nextInt(365);
+                if (!bdays.contains(r)) {
+                    bdays.add(r);
+                } else {
+                    number_of_matches++;
+                    break;
+                }
+            }
+        }
+        return 100.0 * number_of_matches / count;
     }
-
-
-    // TODO -- add your helper methods here
-    
 }
+
+    // solution with array
+//    public double calculate(int size, int count) {
+//        int num = 0;
+//        Random random = new Random();
+//        for (int i = 0; i < count; i++) {
+//            int arr[] = new int[365];
+//            random.setSeed(i + 1);
+//            for (int j = 0; j < size; j++) {
+//                int n = random.nextInt(365);
+//                arr[n]++;
+//                if (arr[n] >= 2) {
+//                    num++;
+//                    break;
+//                }
+//            }
+//        }
+//        return num * 100.0 / count;
+//    }
+//}
